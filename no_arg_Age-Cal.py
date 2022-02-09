@@ -1,50 +1,6 @@
 import cv2
 import argparse
 
-
-def highlightFace(net, frame, conf_threshold=0.7):
-    '''
-    This function detects faces on the image using the 'net' passed (if any) and returns the detection output
-    as well as the cordinates of the faces detected
-    '''
-
-    frameOpencvDnn=frame.copy()
-    #--------saving the image dimensions as height and width-------#
-    frameHeight = frameOpencvDnn.shape[0]
-    frameWidth = frameOpencvDnn.shape[1]
-
-    #-----------blob-> Preprocessing the image to required input of the model---------#
-    blob=cv2.dnn.blobFromImage(frameOpencvDnn, 1.0, (300, 300), [104, 117, 123], True, False)
-    net.setInput(blob) #setting the image blob as input
-    detections = net.forward()
-    '''3rd dimension helps you iterate over predictions and
-        in the 4th dimension, there are actual results
-
-        class_lable = int(inference_results[0, 0, i,1]) --> gives one hot encoded class label for ith box
-
-        conf = inference_results[0, 0, i, 2] --> gives confidence of ith box prediction
-        and 2nd dimension is used when the predictions are made in more than one stages, for example in 
-        YOLO the predictions are done at 3 different layers. you can iterate over these predictions using
-         2nd dimension like [:,i,:,:]
-         '''
-    faceBoxes=[]
-    for i in range(detections.shape[2]):
-        confidence=detections[0,0,i,2]
-        if confidence>conf_threshold:
-            # TopLeftX,TopLeftY, BottomRightX, BottomRightY = inference_results[0, 0, i, 3:7] --> gives co-ordinates bounding boxes for resized small image
-            x1=int(detections[0,0,i,3]*frameWidth)
-            y1=int(detections[0,0,i,4]*frameHeight)
-            x2=int(detections[0,0,i,5]*frameWidth)
-            y2=int(detections[0,0,i,6]*frameHeight)
-            # box = detections[0, 0, i, 3:7] * np.array([frameWidth, frameHeight, frameWidth, frameHeight])
-            # faceBoxes.append(box.astype("int"))
-            faceBoxes.append([x1,y1,x2,y2])
-
-            cv2.rectangle(frameOpencvDnn, (x1,y1), (x2,y2), (0,255,0), int(round(frameHeight/150)), 8)
-    return frameOpencvDnn,faceBoxes
-
-
-
 #-----------Model File Paths----------------#
 faceProto="Models/opencv_face_detector.pbtxt"
 faceModel="Models/opencv_face_detector_uint8.pb"
