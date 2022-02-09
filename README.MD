@@ -13,7 +13,9 @@ Using an image to predict age has many uncertainties or variables so to speak, l
 Or maybe the person looks quite old despite being young and vice versa. So in conclusion accuracy of age calculation would be very less in real world case if treated it as a regression problem.
 <br>
 So instead we create age ranges like 0-20 , 25-30 etc and try to classify our image into one of these categories and we find that it is much more accurate and useful in real world scenario.
+
 ## Workflow
+
 ![](assets/workflow.png)
 
 ## What does each script do?
@@ -33,6 +35,6 @@ _<u>Note: Caffe is a deep learning framework, originally developed at University
 - OpenCv Documentation : https://opencv.org/
 
 ### Contribution By : 
-
-[<img src="https://s18955.pcdn.co/wp-content/uploads/2018/02/github.png" width="30"/>](https://github.com/yagyesh-bobde) 
-Yagyesh Bobde
+Yagyesh Bobde   
+<br> 
+[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/yagyesh-bobde-177523220/) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yagyesh-bobde)
